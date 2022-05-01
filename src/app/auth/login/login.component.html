@@ -1,0 +1,36 @@
+<div class="flex h-screen overflow-y-hidden bg-gray-800 text-white bg-primary-black">
+  <div class="w-full flex flex-col min-h-screen justify-center items-center lg:w-[36rem] xl:w-[44rem]">
+    <div class="p-4 rounded-3xl shadow-md shadow-accent-black">
+      <img src="./assets/images/logo.png" alt="" class="w-auto h-32 object-cover">
+    </div>
+    <h1 class="text-6xl font-semibold mt-12">Chatty</h1>
+    <h2 class="text-lg italic pt-8">Just connect everywhere</h2>
+    <div class="flex justify-between p-2 space-x-2 text-xs">
+      <div class="">
+        <img src="" alt="">
+        <p class="">750 Online</p>
+      </div>
+      <div class="">
+        <img src="" alt="">
+        <p class="">1,500 Members</p>
+      </div>
+    </div>
+    <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col text-sm">
+        <input type="email" placeholder="Email" formControlName="email"
+               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent w-full p-3 mb-4 text-white placeholder-white"
+               autocomplete="off">
+        <input type="password" placeholder="Password" formControlName="password"
+               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent p-3 mb-4 text-white placeholder-white"
+               autocomplete="off">
+        <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!loginForm.valid">Login</button>
+      </form>
+      <p class="text-grey-dark mt-6 text-center italic text-sm">Do not have an account?
+        <a class="text-blue-400 text-secondary-blue" href="">Sign Up</a>
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-1 min-h-screen hidden md:block">
+    <img src="./assets/images/signup-page.png" alt="" class="w-full h-full object-cover object-right-bottom">
+  </div>
+</div>
