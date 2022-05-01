@@ -1,7 +1,14 @@
 module.exports = {
-  content: [],
+  content: [
+    "./src/**/*.{html,ts}"
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'noto-sans': ['Montserrat', 'san-serif'
+        ]
+      }
+    },
   },
   plugins: [],
 }
