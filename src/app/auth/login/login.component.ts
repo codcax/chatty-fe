@@ -8,7 +8,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginComponent implements OnInit{
   title = 'chatty';
-
   loginForm: FormGroup;
 
   ngOnInit() {
