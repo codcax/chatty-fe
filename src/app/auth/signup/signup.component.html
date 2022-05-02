@@ -1,4 +1,4 @@
-<div class="flex h-screen overflow-y-hidden bg-gray-800 text-white bg-primary-black">
+<div class="flex h-screen bg-gray-800 text-white bg-primary-black">
   <div class="w-full flex flex-col min-h-screen justify-center items-center lg:w-[36rem] xl:w-[44rem]">
     <div class="p-4 rounded-3xl shadow-md shadow-accent-black">
       <img src="./assets/images/logo.png" alt="" class="w-auto h-32 object-cover">
@@ -17,22 +17,39 @@
     </div>
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col text-sm">
-        <input type="text" placeholder="Username" formControlName="username"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent w-full p-3 mb-4 text-white placeholder-white"
+        <input type="text" placeholder="Username" formControlName="username" (focus)="onFocus($event)"
+               [ngClass]="!signupForm.get('username')?.valid && signupForm.get('username')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
-        <input type="email" placeholder="Email" formControlName="email"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent w-full p-3 mb-4 text-white placeholder-white"
+        <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-gray text-accent-gray mb-4"
+             *ngIf="this.focusControl === 'username'">
+          <p class="pb-0.5">At least 6 chars min and 18 chars max.</p>
+          <p class="pb-0.5">Must only contain alphabetic chars.</p>
+        </div>
+        <input type="email" placeholder="Email" formControlName="email" (focus)="onFocus($event)"
+               [ngClass]="!signupForm.get('email')?.valid && signupForm.get('email')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
-        <input type="password" placeholder="Password" formControlName="password"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent p-3 mb-4 text-white placeholder-white"
+        <input type="password" placeholder="Password" formControlName="password" (focus)="onFocus($event)"
+               [ngClass]="!signupForm.get('password')?.valid && signupForm.get('password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
-        <input type="password" placeholder="Confirm Password" formControlName="confirm-password"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent w-full p-3 mb-4 text-white placeholder-white"
+        <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-gray text-accent-gray mb-4"
+             *ngIf="this.focusControl === 'password'">
+          <p class="pb-0.5">At least 8 chars min and 32 chars max.</p>
+          <p class="pb-0.5">Must include at least one letter uppercase and lowercase.</p>
+          <p class="pb-0.5">Must include at least one special chars.</p>
+        </div>
+        <input type="password" placeholder="Confirm Password" formControlName="confirm-password" (focus)="onFocus($event)"
+               [ngClass]="!signupForm.valid && signupForm.get('confirm-password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
-        <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!signupForm.valid">Create Account</button>
+        <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!signupForm.valid"
+        >Create Account
+        </button>
       </form>
-      <p class="text-grey-dark mt-6 text-center italic text-sm">Already have an account?
-        <a class="text-blue-400 text-secondary-blue" href="">Login</a>
+      <p class="text-grey-dark mt-6 text-center italic text-xs md:text-sm">Already have an account?
+        <a class="text-blue-400 text-secondary-blue" href="/login">Login</a>
       </p>
     </div>
   </div>

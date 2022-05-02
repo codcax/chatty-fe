@@ -18,15 +18,17 @@
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col text-sm">
         <input type="email" placeholder="Email" formControlName="email"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent w-full p-3 mb-4 text-white placeholder-white"
+               [ngClass]="!loginForm.get('email')?.valid && loginForm.get('email')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
         <input type="password" placeholder="Password" formControlName="password"
-               class="appearance-none focus:outline-none block border-b border-gray-400 bg-transparent p-3 mb-4 text-white placeholder-white"
+               [ngClass]="!loginForm.get('password')?.valid && loginForm.get('password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               class="appearance-none focus:outline-none block border-b bg-transparent p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
         <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!loginForm.valid">Login</button>
       </form>
       <p class="text-grey-dark mt-6 text-center italic text-sm">Do not have an account?
-        <a class="text-blue-400 text-secondary-blue" href="">Sign Up</a>
+        <a class="text-blue-400 text-secondary-blue" href="/signup">Sign Up</a>
       </p>
     </div>
   </div>

@@ -20,6 +20,15 @@ module.exports = {
         'primary-white': '#FFFFFF',
         'secondary-white': '#F2F3F5',
         'accent-white': '#F8FAF9',
+        'primary-error': '#E53935',
+        'secondary-error': '#EF5350',
+        'accent-error': '#EF9A9A',
+        'primary-warning': '#FDE047',
+        'secondary-warning': '#FEF08A',
+        'accent-warning': '#FEFEC8',
+        'primary-success': '#4ADE80',
+        'secondary-success': '#86EFAC',
+        'accent-success': '#BBF7D0',
 
       },
       fontFamily: {
