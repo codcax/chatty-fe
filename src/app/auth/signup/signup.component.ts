@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {passwordValidator} from '../validators/password.validator';
-import {AuthService} from '../services/auth.service';
+import {authValidator} from '../../validators/auth.validator';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
       'password': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,32}$')]),
       'confirmPassword': new FormControl(null, [Validators.required])
     }, {
-      validators: passwordValidator('password', 'confirmPassword')
+      validators: authValidator('password', 'confirmPassword')
     });
   }
 
