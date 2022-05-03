@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col text-sm">
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="flex flex-col text-sm">
         <input type="text" placeholder="Username" formControlName="username" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('username')?.valid && signupForm.get('username')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
@@ -40,8 +40,8 @@
           <p class="pb-0.5">Must include at least one letter uppercase and lowercase.</p>
           <p class="pb-0.5">Must include at least one special chars.</p>
         </div>
-        <input type="password" placeholder="Confirm Password" formControlName="confirm-password" (focus)="onFocus($event)"
-               [ngClass]="!signupForm.valid && signupForm.get('confirm-password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="onFocus($event)"
+               [ngClass]="!signupForm.valid && signupForm.get('confirmPassword')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
         <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!signupForm.valid"

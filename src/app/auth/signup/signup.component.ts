@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {passwordValidator} from './password.validator';
+import {passwordValidator} from '../validators/password.validator';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,19 +14,25 @@ export class SignUpComponent implements OnInit {
   signupForm: FormGroup;
   focusControl: string | undefined;
 
+  constructor(public authService: AuthService) {
+  }
+
   ngOnInit() {
     this.signupForm = new FormGroup({
       'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z]{6,18}$')]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,32}$')]),
-      'confirm-password': new FormControl(null, [Validators.required])
+      'confirmPassword': new FormControl(null, [Validators.required])
     }, {
-      validators: passwordValidator('password', 'confirm-password')
+      validators: passwordValidator('password', 'confirmPassword')
     });
   }
 
-  onSubmit() {
-    console.log(this.signupForm)
+  onSignup() {
+    if (this.signupForm.invalid) {
+      return;
+    }
+    this.authService.userCreate(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
   }
 
   onFocus(event: any) {
