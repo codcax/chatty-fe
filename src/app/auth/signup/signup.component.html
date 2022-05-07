@@ -30,6 +30,10 @@
                [ngClass]="!signupForm.get('email')?.valid && signupForm.get('email')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
+        <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-gray text-accent-gray mb-4"
+             *ngIf="this.focusControl === 'email'">
+          <p class="pb-0.5">Email must be valid.</p>
+        </div>
         <input type="password" placeholder="Password" formControlName="password" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('password')?.valid && signupForm.get('password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent p-3 mb-4 text-white placeholder-white"
@@ -41,9 +45,13 @@
           <p class="pb-0.5">Must include at least one special chars.</p>
         </div>
         <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="onFocus($event)"
-               [ngClass]="!signupForm.valid && signupForm.get('confirmPassword')?.touched ? 'border-accent-error' : 'border-accent-gray'"
+               [ngClass]="(signupForm.get('confirmPassword')?.value !== signupForm.get('password')?.value) && signupForm.get('confirmPassword')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
+        <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-gray text-accent-gray mb-4"
+             *ngIf="this.focusControl === 'confirmPassword' &&  (signupForm.get('confirmPassword')?.value !== signupForm.get('password')?.value)">
+          <p class="pb-0.5">Passwords must match.</p>
+        </div>
         <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!signupForm.valid"
         >Create Account
         </button>

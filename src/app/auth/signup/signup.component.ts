@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
     if (this.signupForm.invalid) {
       return;
     }
-    this.authService.userCreate(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
+    this.authService.userSignup(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
   }
 
   onFocus(event: any) {
@@ -40,6 +40,10 @@ export class SignUpComponent implements OnInit {
       this.focusControl = 'password'
     } else if (event.target.attributes.formControlName.value === 'username') {
       this.focusControl = 'username'
+    } else if (event.target.attributes.formControlName.value === 'email') {
+      this.focusControl = 'email'
+    } else if (event.target.attributes.formControlName.value === 'confirmPassword') {
+      this.focusControl = 'confirmPassword'
     } else {
       this.focusControl = undefined
     }
