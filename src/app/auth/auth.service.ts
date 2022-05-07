@@ -1,45 +1,26 @@
 import {Injectable} from '@angular/core';
 import {UserCreate, UserLogin} from './auth.model';
-import {Apollo, gql} from 'apollo-angular';
-import {HttpClient} from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import {Apollo} from 'apollo-angular';
+import {SignupGqlService} from "../graphql/auth/signup-gql.service";
+import {LoginGqlService} from "../graphql/auth/login-gql.service";
 
-
-const userCreate = gql`
-  mutation userCreate($userCreateData: userCreate!) {
-    userCreate (input: $userCreateData){
-      _id
-    }
-  }
-`;
-
-const userLogin = gql`
-  query userLogin($userLoginData: userLogin!) {
-    userLogin (input: $userLoginData){
-      _id
-    }
-  }
-`;
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  constructor(private http: HttpClient, private apollo: Apollo) {
+  constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
 
-  userCreate(email: string, username: string, password: string, confirmPassword: string) {
-    const userCreateData: UserCreate = {
+  userSignup(email: string, username: string, password: string, confirmPassword: string) {
+    const userSignupData: UserCreate = {
       email: email,
       username: username,
       password: password,
       confirmPassword: confirmPassword
     };
 
-    this.apollo.mutate<any>({
-      mutation: userCreate,
-      variables: {
-        userCreateData: userCreateData
-      }
-    }).subscribe((result) => {
+    this.signupGqlService.mutate({
+      userCreateData: userSignupData
+    }).subscribe(result => {
       console.log(result)
     })
   }
@@ -50,11 +31,8 @@ export class AuthService {
       password: password,
     };
 
-    this.apollo.watchQuery<any>({
-      query: userLogin,
-      variables: {
-        userLoginData: userLoginData
-      }
+    this.loginGqlService.watch({
+      userLoginData: userLoginData
     }).valueChanges.subscribe((result) => {
       console.log(result)
     })
