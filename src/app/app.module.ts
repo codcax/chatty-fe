@@ -8,6 +8,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {SignUpComponent} from './auth/signup/signup.component';
 import {HeaderComponent} from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GraphQLModule } from './graphql/graphql.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]

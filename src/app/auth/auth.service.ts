@@ -1,11 +1,20 @@
 import {Injectable} from '@angular/core';
 import {UserCreate, UserLogin} from './auth.model';
+import {Apollo, gql} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 
+const userLogin = gql`
+  query userLogin($userLoginData: userLogin!) {
+    userLogin (input: $userLoginData){
+      _id
+    }
+  }
+`;
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private apollo: Apollo) {
   }
 
   userCreate(email: string, username: string, password: string, confirmPassword: string) {
@@ -27,10 +36,14 @@ export class AuthService {
       email: email,
       password: password,
     };
-    this.http.post(environment.apiURL + 'login', userLoginData)
-      .subscribe(response => {
-        console.log(response);
-      })
 
+    this.apollo.watchQuery<any>({
+      query: userLogin,
+      variables: {
+        userLoginData: userLoginData
+      }
+    }).valueChanges.subscribe((result) => {
+      console.log(result)
+    })
   }
 }
