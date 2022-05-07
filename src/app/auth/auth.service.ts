@@ -4,6 +4,15 @@ import {Apollo, gql} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 
+
+const userCreate = gql`
+  mutation userCreate($userCreateData: userCreate!) {
+    userCreate (input: $userCreateData){
+      _id
+    }
+  }
+`;
+
 const userLogin = gql`
   query userLogin($userLoginData: userLogin!) {
     userLogin (input: $userLoginData){
@@ -25,10 +34,14 @@ export class AuthService {
       confirmPassword: confirmPassword
     };
 
-    this.http.post(environment.apiURL + 'signup', userCreateData)
-      .subscribe(response => {
-        console.log(response);
-      })
+    this.apollo.mutate<any>({
+      mutation: userCreate,
+      variables: {
+        userCreateData: userCreateData
+      }
+    }).subscribe((result) => {
+      console.log(result)
+    })
   }
 
   userLogin(email: string, password: string) {
