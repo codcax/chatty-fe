@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {authValidator} from '../auth.validator';
 import {AuthService} from '../auth.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +14,8 @@ export class SignUpComponent implements OnInit {
   title = 'chatty';
   signupForm: FormGroup;
   focusControl: string | undefined;
+  error: any = [];
+  private errorSignUpSub: Subscription;
 
   constructor(public authService: AuthService) {
   }
@@ -33,6 +36,10 @@ export class SignUpComponent implements OnInit {
       return;
     }
     this.authService.userSignup(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
+    this.errorSignUpSub = this.authService.getUserSignUpError().subscribe((errors: any) => {
+      this.error = [];
+      this.errorSignUp(errors);
+    });
   }
 
   onFocus(event: any) {
@@ -47,5 +54,19 @@ export class SignUpComponent implements OnInit {
     } else {
       this.focusControl = undefined
     }
+  }
+
+  errorSignUp(errors: any) {
+    if (errors.length > 0) {
+      errors.map((err: any) => {
+          this.error.push(err.message)
+      })
+    } else {
+      this.error = [];
+    }
+  }
+
+  ngOnDestroy() {
+    this.errorSignUpSub.unsubscribe();
   }
 }

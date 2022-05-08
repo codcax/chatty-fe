@@ -7,7 +7,16 @@ export class LoginGqlService extends Query {
   override document = gql`
     query userLogin($userLoginData: userLogin!) {
       userLogin (input: $userLoginData){
-        _id
+        ok
+        data{
+          userId
+          token
+        }
+        errors{
+          type
+          message
+          code
+        }
       }
     }
   `;

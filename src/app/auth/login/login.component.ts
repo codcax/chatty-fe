@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import {AuthService} from "../auth.service";
 export class LoginComponent implements OnInit {
   title = 'chatty';
   loginForm: FormGroup;
+  error: any = [];
+  private errorLoginSub: Subscription;
 
   constructor(private authService: AuthService) {
   }
@@ -26,5 +29,23 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.userLogin(this.loginForm.value.email, this.loginForm.value.password);
+    this.errorLoginSub = this.authService.getUserLoginError().subscribe((errors: any) => {
+      this.error = [];
+      this.errorLogin(errors);
+    });
+  }
+
+  errorLogin(errors: any) {
+    if (errors.length > 0) {
+      errors.map((err: any) => {
+        this.error.push(err.message)
+      })
+    } else {
+      this.error = [];
+    }
+  }
+
+  ngOnDestroy() {
+    this.errorLoginSub.unsubscribe();
   }
 }

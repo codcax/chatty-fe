@@ -16,6 +16,10 @@
       </div>
     </div>
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
+      <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-error text-accent-error mb-4"
+           *ngIf="this.error.length>0">
+        <p class="pb-0.5" *ngFor="let message of error">{{message}}</p>
+      </div>
       <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="flex flex-col text-sm">
         <input type="text" placeholder="Username" formControlName="username" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('username')?.valid && signupForm.get('username')?.touched ? 'border-accent-error' : 'border-accent-gray'"
@@ -44,7 +48,8 @@
           <p class="pb-0.5">Must include at least one letter uppercase and lowercase.</p>
           <p class="pb-0.5">Must include at least one special chars.</p>
         </div>
-        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" (focus)="onFocus($event)"
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword"
+               (focus)="onFocus($event)"
                [ngClass]="(signupForm.get('confirmPassword')?.value !== signupForm.get('password')?.value) && signupForm.get('confirmPassword')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
@@ -52,7 +57,8 @@
              *ngIf="this.focusControl === 'confirmPassword' &&  (signupForm.get('confirmPassword')?.value !== signupForm.get('password')?.value)">
           <p class="pb-0.5">Passwords must match.</p>
         </div>
-        <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue" [disabled]="!signupForm.valid"
+        <button type="submit" class="text-center py-3 rounded bg-blue-500 my-1 bg-primary-blue"
+                [disabled]="!signupForm.valid"
         >Create Account
         </button>
       </form>
