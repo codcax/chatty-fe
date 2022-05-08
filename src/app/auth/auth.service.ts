@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {UserCreate, UserLogin} from './auth.model';
+import {UserSignUp, UserLogin} from './auth.model';
 import {Apollo} from 'apollo-angular';
 import {SignupGqlService} from "../graphql/auth/signup-gql.service";
 import {LoginGqlService} from "../graphql/auth/login-gql.service";
@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   userSignup(email: string, username: string, password: string, confirmPassword: string) {
-    const userSignupData: UserCreate = {
+    const userSignupData: UserSignUp = {
       email: email,
       username: username,
       password: password,
