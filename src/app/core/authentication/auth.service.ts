@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {UserSignUp, UserLogin} from './auth.model';
 import {Apollo} from 'apollo-angular';
-import {SignupGqlService} from "../../graphql/auth/signup-gql.service";
-import {LoginGqlService} from "../../graphql/auth/login-gql.service";
+import {SignupGqlService} from '../../graphql/auth/signup-gql.service';
+import {LoginGqlService} from '../../graphql/auth/login-gql.service';
 import {catchError, map, Subject} from "rxjs";
-import {subscribe} from "graphql";
+import {Errors} from '../../shared/error/error.model';
 
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  private userLoginError = new Subject();
-  private userSignUpError = new Subject();
+  private userLoginError = new Subject<Errors>();
+  private userSignUpError = new Subject<Errors>();
 
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
@@ -32,7 +32,7 @@ export class AuthService {
       // @ts-ignore
       catchError(err => {
         console.log(err)
-      })).subscribe(response => {
+      })).subscribe((response) => {
       const ok = response.userSignUp.ok;
       const data = response.userSignUp.data;
       const errors = response.userSignUp.errors;
@@ -41,7 +41,6 @@ export class AuthService {
       }
       if (ok) {
         this.userSignUpError.next([]);
-        console.log(data)
       }
     })
   }
@@ -52,7 +51,6 @@ export class AuthService {
       password: password,
     };
 
-    // @ts-ignore
     this.loginGqlService.watch({
       userLoginData: userLoginData,
     }).valueChanges.pipe(
@@ -63,7 +61,7 @@ export class AuthService {
       catchError(err => {
         console.log(err)
       })
-    ).subscribe(response => {
+    ).subscribe((response) => {
       const ok = response.userLogin.ok;
       const data = response.userLogin.data;
       const errors = response.userLogin.errors;
@@ -72,7 +70,6 @@ export class AuthService {
       }
       if (ok) {
         this.userLoginError.next([]);
-        console.log(data)
       }
     })
   }

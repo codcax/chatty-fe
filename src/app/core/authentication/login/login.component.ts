@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {Subscription} from "rxjs";
+import {Errors} from "../../../shared/error/error.model";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import {Subscription} from "rxjs";
 export class LoginComponent implements OnInit {
   title = 'chatty';
   loginForm: FormGroup;
-  error: any = [];
+  errors: Errors = [];
   private errorLoginSub: Subscription;
 
   constructor(private authService: AuthService) {
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.userLogin(this.loginForm.value.email, this.loginForm.value.password);
     this.errorLoginSub = this.authService.getUserLoginError().subscribe((errors: any) => {
-      this.error = [];
+      this.errors = [];
       this.errorLogin(errors);
     });
   }
@@ -38,10 +39,10 @@ export class LoginComponent implements OnInit {
   errorLogin(errors: any) {
     if (errors.length > 0) {
       errors.map((err: any) => {
-        this.error.push(err.message)
+        this.errors.push(err.message)
       })
     } else {
-      this.error = [];
+      this.errors = [];
     }
   }
 
