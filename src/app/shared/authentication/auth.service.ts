@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {UserSignUp, UserLogin} from './auth.model';
 import {Apollo} from 'apollo-angular';
-import {SignupGqlService} from '../../graphql/auth/signup-gql.service';
-import {LoginGqlService} from '../../graphql/auth/login-gql.service';
+import {SignupGqlService} from '../../graphql/authentication/signup-gql.service';
+import {LoginGqlService} from '../../graphql/authentication/login-gql.service';
 import {catchError, map, Subject} from "rxjs";
-import {Errors} from '../../shared/error/error.model';
+import {Errors} from '../error/error.model';
 
 
 @Injectable({providedIn: 'root'})

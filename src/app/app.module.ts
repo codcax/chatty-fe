@@ -4,8 +4,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {LoginComponent} from './core/authentication/login/login.component';
-import {SignUpComponent} from './core/authentication/signup/signup.component';
+import {LoginComponent} from './core/login/login.component';
+import {SignUpComponent} from './core/signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphQLModule } from './graphql/graphql.module';
 
