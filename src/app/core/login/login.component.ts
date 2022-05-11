@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../../shared/authentication/auth.service";
 import {Subscription} from "rxjs";
-import {Errors} from "../../../shared/error/error.model";
+import {Errors} from "../../shared/error/error.model";
 
 @Component({
   selector: 'app-login',
