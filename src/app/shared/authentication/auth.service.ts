@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {UserSignUp, UserLogin} from './auth.model';
 import {Apollo} from 'apollo-angular';
+import {catchError, map, Subject} from "rxjs";
+
 import {SignupGqlService} from '../../graphql/authentication/signup-gql.service';
 import {LoginGqlService} from '../../graphql/authentication/login-gql.service';
-import {catchError, map, Subject} from "rxjs";
+
+import {UserSignUp, UserLogin, UserAuthToken} from './auth.model';
 import {Errors} from '../error/error.model';
 
 
@@ -11,6 +13,7 @@ import {Errors} from '../error/error.model';
 export class AuthService {
   private userLoginError = new Subject<Errors>();
   private userSignUpError = new Subject<Errors>();
+  private userAuthToken = new Subject<UserAuthToken>();
 
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
@@ -70,8 +73,13 @@ export class AuthService {
       }
       if (ok) {
         this.userLoginError.next([]);
+        this.userAuthToken.next(data.token);
       }
     })
+  }
+
+  getUserAuthToken(){
+    return this.userAuthToken.asObservable();
   }
 
   getUserLoginError() {

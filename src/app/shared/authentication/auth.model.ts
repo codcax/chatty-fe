@@ -10,3 +10,7 @@ export interface UserLogin {
   password: string;
 }
 
+export interface UserAuthToken{
+  token: string;
+}
+
