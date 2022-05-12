@@ -13,13 +13,13 @@ import {Errors} from '../error/error.model';
 export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
   private userSignUpError = new Subject<Errors>();
-  private userAuthToken: UserAuthToken;
   private userIsAuth = false;
+  private static userAuthToken: UserAuthToken;
 
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
 
-  userSignup(email: string, username: string, password: string, confirmPassword: string) {
+  public userSignup(email: string, username: string, password: string, confirmPassword: string) {
     const userSignupData: UserSignUp = {
       email: email,
       username: username,
@@ -49,7 +49,7 @@ export class AuthenticationService {
     })
   }
 
-  userLogin(email: string, password: string) {
+  public userLogin(email: string, password: string) {
     const userLoginData: UserLogin = {
       email: email,
       password: password,
@@ -74,25 +74,25 @@ export class AuthenticationService {
       }
       if (ok) {
         this.userLoginError.next([]);
-        this.userAuthToken = data.token;
+        AuthenticationService.userAuthToken = data.token;
         this.userIsAuth = true;
       }
     })
   }
 
-  getUserAuthToken() {
-    return this.userAuthToken;
-  }
-
-  getUserIsAuth() {
+  public getUserIsAuth() {
     return this.userIsAuth;
   }
 
-  getUserLoginError() {
+  public getUserLoginError() {
     return this.userLoginError.asObservable();
   }
 
-  getUserSignUpError() {
+  public getUserSignUpError() {
     return this.userSignUpError.asObservable();
+  }
+
+  public static getUserAuthToken() {
+    return this.userAuthToken;
   }
 }

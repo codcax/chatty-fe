@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {AuthenticationService} from '../../shared/authentication/authentication.service';
 import {UserAuthToken} from "../../shared/authentication/authentication.model";
@@ -11,10 +11,11 @@ import {UserAuthToken} from "../../shared/authentication/authentication.model";
 export class DashboardComponent implements OnInit {
   private userAuthToken: UserAuthToken
 
-  constructor(private authService: AuthenticationService ) {}
+  constructor(private authService: AuthenticationService) {
+  }
 
   ngOnInit() {
-    this.userAuthToken = this.authService.getUserAuthToken()
+    this.userAuthToken = AuthenticationService.getUserAuthToken()
     console.log(this.userAuthToken)
   }
 }
