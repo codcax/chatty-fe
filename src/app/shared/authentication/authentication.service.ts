@@ -5,12 +5,12 @@ import {catchError, map, Subject} from "rxjs";
 import {SignupGqlService} from '../../graphql/authentication/signup-gql.service';
 import {LoginGqlService} from '../../graphql/authentication/login-gql.service';
 
-import {UserSignUp, UserLogin, UserAuthToken} from './auth.model';
+import {UserSignUp, UserLogin, UserAuthToken} from './authentication.model';
 import {Errors} from '../error/error.model';
 
 
 @Injectable({providedIn: 'root'})
-export class AuthService {
+export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
   private userSignUpError = new Subject<Errors>();
   private userAuthToken = new Subject<UserAuthToken>();

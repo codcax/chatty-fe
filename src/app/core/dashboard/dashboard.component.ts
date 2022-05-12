@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 
-import {AuthService} from '../../shared/authentication/auth.service';
+import {AuthenticationService} from '../../shared/authentication/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +11,7 @@ import {AuthService} from '../../shared/authentication/auth.service';
 export class DashboardComponent implements OnInit {
   private userAuthToken: Subscription;
 
-  constructor(private authService: AuthService ) {}
+  constructor(private authService: AuthenticationService ) {}
 
   ngOnInit() {
     this.userAuthToken = this.authService.getUserAuthToken().subscribe(authToken =>{
