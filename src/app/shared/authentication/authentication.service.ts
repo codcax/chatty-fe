@@ -13,7 +13,8 @@ import {Errors} from '../error/error.model';
 export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
   private userSignUpError = new Subject<Errors>();
-  private userAuthToken = new Subject<UserAuthToken>();
+  private userAuthToken: UserAuthToken;
+  private userIsAuth = false;
 
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
@@ -73,13 +74,18 @@ export class AuthenticationService {
       }
       if (ok) {
         this.userLoginError.next([]);
-        this.userAuthToken.next(data.token);
+        this.userAuthToken = data.token;
+        this.userIsAuth = true;
       }
     })
   }
 
-  getUserAuthToken(){
-    return this.userAuthToken.asObservable();
+  getUserAuthToken() {
+    return this.userAuthToken;
+  }
+
+  getUserIsAuth() {
+    return this.userIsAuth;
   }
 
   getUserLoginError() {
