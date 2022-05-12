@@ -8,9 +8,9 @@ import {AuthenticationGuard} from './shared/authentication/authentication.guard'
 
 const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthenticationGuard]},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'login', component: LoginComponent},
-  { path: '**', redirectTo: ''}
+  {path: 'signup', component: SignUpComponent, canActivate: [AuthenticationGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [AuthenticationGuard]},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
@@ -18,4 +18,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthenticationGuard]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

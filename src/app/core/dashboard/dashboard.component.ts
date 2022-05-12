@@ -9,13 +9,9 @@ import {UserAuthToken} from "../../shared/authentication/authentication.model";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private userAuthToken: UserAuthToken
-
-  constructor(private authService: AuthenticationService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.userAuthToken = AuthenticationService.getUserAuthToken()
-    console.log(this.userAuthToken)
   }
 }

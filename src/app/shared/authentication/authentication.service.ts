@@ -19,7 +19,7 @@ export class AuthenticationService {
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
 
-  public userSignup(email: string, username: string, password: string, confirmPassword: string) {
+  userSignup(email: string, username: string, password: string, confirmPassword: string) {
     const userSignupData: UserSignUp = {
       email: email,
       username: username,
@@ -49,7 +49,7 @@ export class AuthenticationService {
     })
   }
 
-  public userLogin(email: string, password: string) {
+  userLogin(email: string, password: string) {
     const userLoginData: UserLogin = {
       email: email,
       password: password,
@@ -72,27 +72,37 @@ export class AuthenticationService {
       if (!ok) {
         this.userLoginError.next([...errors]);
       }
-      if (ok) {
+      if (ok && data && data.token) {
         this.userLoginError.next([]);
         AuthenticationService.userAuthToken = data.token;
+        this.storeAuthToken(data.token, data.token);
         this.userIsAuth = true;
       }
     })
   }
 
-  public getUserIsAuth() {
+  getUserIsAuth() {
     return this.userIsAuth;
   }
 
-  public getUserLoginError() {
+  getUserLoginError() {
     return this.userLoginError.asObservable();
   }
 
-  public getUserSignUpError() {
+  getUserSignUpError() {
     return this.userSignUpError.asObservable();
   }
 
-  public static getUserAuthToken() {
+  static getUserAuthToken() {
     return this.userAuthToken;
+  }
+
+  private storeAuthToken(token: string, expirationDate: Date) {
+    localStorage.setItem('token', token);
+  }
+
+  private removeAuthToken() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
   }
 }
