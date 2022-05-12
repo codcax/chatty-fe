@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subscription} from "rxjs";
 
 import {authValidator} from '../../shared/authentication/auth.validator';
 import {AuthService} from '../../shared/authentication/auth.service';
-import {Subscription} from "rxjs";
 import {Errors} from "../../shared/error/error.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ export class SignUpComponent implements OnInit {
   errors: Errors = [];
   private errorSignUpSub: Subscription;
 
-  constructor(public authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -38,7 +39,6 @@ export class SignUpComponent implements OnInit {
     }
     this.authService.userSignup(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
     this.errorSignUpSub = this.authService.getUserSignUpError().subscribe((errors: any) => {
-      this.errors = [];
       this.errorSignUp(errors);
     });
   }
@@ -59,11 +59,11 @@ export class SignUpComponent implements OnInit {
 
   errorSignUp(errors: any) {
     if (errors.length > 0) {
-      errors.map((err: any) => {
-          this.errors.push(err.message)
-      })
+      this.errors = errors;
+      this.errorSignUpSub.unsubscribe();
     } else {
       this.errors = [];
+      this.router.navigate(['login']);
     }
   }
 

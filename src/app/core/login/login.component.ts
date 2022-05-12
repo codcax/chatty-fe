@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../shared/authentication/auth.service";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
+
+import {AuthService} from "../../shared/authentication/auth.service";
 import {Errors} from "../../shared/error/error.model";
 
 @Component({
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   errors: Errors = [];
   private errorLoginSub: Subscription;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -31,18 +33,17 @@ export class LoginComponent implements OnInit {
     }
     this.authService.userLogin(this.loginForm.value.email, this.loginForm.value.password);
     this.errorLoginSub = this.authService.getUserLoginError().subscribe((errors: any) => {
-      this.errors = [];
       this.errorLogin(errors);
     });
   }
 
   errorLogin(errors: any) {
     if (errors.length > 0) {
-      errors.map((err: any) => {
-        this.errors.push(err.message)
-      })
+      this.errors = errors;
+      this.errorLoginSub.unsubscribe();
     } else {
       this.errors = [];
+      this.router.navigate(['/']);
     }
   }
 
