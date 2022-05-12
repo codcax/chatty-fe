@@ -18,7 +18,7 @@
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
       <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-error text-accent-error mb-4"
            *ngIf="this.errors.length>0">
-        <p class="pb-1" *ngFor="let message of errors">{{message}}</p>
+        <p class="pb-1" *ngFor="let error of errors">{{error.message}}</p>
       </div>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col text-sm">
         <input type="email" placeholder="Email" formControlName="email"
