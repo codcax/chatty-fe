@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from "rxjs";
 
-import {authValidator} from '../../shared/authentication/auth.validator';
-import {AuthService} from '../../shared/authentication/auth.service';
+import {authenticationValidator} from '../../shared/authentication/authentication.validator';
+import {AuthenticationService} from '../../shared/authentication/authentication.service';
 import {Errors} from "../../shared/error/error.model";
 import {Router} from "@angular/router";
 
@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit {
   errors: Errors = [];
   private errorSignUpSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
       'password': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,32}$')]),
       'confirmPassword': new FormControl(null, [Validators.required])
     }, {
-      validators: authValidator('password', 'confirmPassword')
+      validators: authenticationValidator('password', 'confirmPassword')
     });
   }
 

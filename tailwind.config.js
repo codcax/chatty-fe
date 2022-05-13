@@ -4,13 +4,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderWidth: {
+        DEFAULT: '1px',
+        '5': '5px',
+        '6': '6px',
+      },
       colors: {
         'primary-black': '#202225',
         'secondary-black': '#292B2F',
         'accent-black': '#42454A',
-        'primary-gray': '#839297',
-        'secondary-gray': '#B9BBBE',
-        'accent-gray': '#C7C9CB',
+        'primary-gray': '#36393E',
+        'secondary-gray': '#424549',
+        'accent-gray': '#99AAB5',
         'primary-green': '#3BA55D',
         // 'secondary-green':'',
         // 'accent-green':'',
