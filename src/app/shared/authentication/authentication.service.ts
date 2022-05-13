@@ -5,15 +5,16 @@ import {catchError, map, Subject} from "rxjs";
 import {SignupGqlService} from '../../graphql/authentication/signup-gql.service';
 import {LoginGqlService} from '../../graphql/authentication/login-gql.service';
 
-import {UserSignUp, UserLogin, UserAuthToken} from './auth.model';
+import {UserSignUp, UserLogin, UserAuthToken} from './authentication.model';
 import {Errors} from '../error/error.model';
 
 
 @Injectable({providedIn: 'root'})
-export class AuthService {
+export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
   private userSignUpError = new Subject<Errors>();
-  private userAuthToken = new Subject<UserAuthToken>();
+  private userIsAuth = false;
+  private static userAuthToken: UserAuthToken;
 
   constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
   }
@@ -71,15 +72,17 @@ export class AuthService {
       if (!ok) {
         this.userLoginError.next([...errors]);
       }
-      if (ok) {
+      if (ok && data && data.token) {
         this.userLoginError.next([]);
-        this.userAuthToken.next(data.token);
+        AuthenticationService.userAuthToken = data.token;
+        this.storeAuthToken(data.token, data.token);
+        this.userIsAuth = true;
       }
     })
   }
 
-  getUserAuthToken(){
-    return this.userAuthToken.asObservable();
+  getUserIsAuth() {
+    return this.userIsAuth;
   }
 
   getUserLoginError() {
@@ -88,5 +91,18 @@ export class AuthService {
 
   getUserSignUpError() {
     return this.userSignUpError.asObservable();
+  }
+
+  static getUserAuthToken() {
+    return this.userAuthToken;
+  }
+
+  private storeAuthToken(token: string, expirationDate: Date) {
+    localStorage.setItem('token', token);
+  }
+
+  private removeAuthToken() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
   }
 }
