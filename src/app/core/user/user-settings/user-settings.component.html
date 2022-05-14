@@ -1,0 +1,42 @@
+<ng-container *ngIf="modalState | async as modalState">
+  <section [ngClass]="modalState ==='open' ? 'visible' : 'hidden'"
+           class="absolute top-0 left-0 flex min-h-screen h-screen w-screen overflow-y-hidden">
+    <div class="flex-1 flex">
+      <div class="w-[32rem] flex-none flex flex-col min-h-screen h-screen bg-primary-black pl-32 pr-4 pt-16 text-accent-gray">
+        <div class="ml-32 flex flex-col">
+          <div class="space-y-2 border-b-2 border-b-secondary-gray pb-3">
+            <h1 class="text-xs font-bold pl-2">USER SETTINGS</h1>
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">My Account</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">User Profile</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Privacy & Safety</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Authorised Apps</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Connections</li>
+            </ul>
+          </div>
+          <div class="space-y-2 border-b-2 border-b-secondary-gray pb-3 pt-5">
+            <h1 class="text-xs font-bold pl-2">APP SETTINGS</h1>
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Appearance</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Accessibility</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Voice & Video</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Text & Images</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Notifications</li>
+            </ul>
+          </div>
+          <div class="space-y-2 pb-5 pt-3">
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Logout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary-gray flex-1 pt-16">
+        <div class="">
+          <button class="close" type="button" (click)="closeModal()">Close</button>
+          <h1>My Account</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

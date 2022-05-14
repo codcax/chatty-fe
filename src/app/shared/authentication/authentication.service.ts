@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
-import {catchError, map, Subject} from "rxjs";
+import {catchError, map, Subject} from 'rxjs';
 
 import {SignupGqlService} from '../../graphql/authentication/signup-gql.service';
 import {LoginGqlService} from '../../graphql/authentication/login-gql.service';

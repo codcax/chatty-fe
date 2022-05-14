@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserSettingsService} from "./user-settings/user-settings.service";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private userSettingsService: UserSettingsService) {
   }
 
+  ngOnInit() {
+  }
+
+  openUserSettingsModal() {
+    this.userSettingsService.openModal();
+  }
 }
