@@ -16,6 +16,8 @@ import { UsersComponent } from './core/users/users.component';
 import { ChatComponent } from './core/chat/chat.component';
 import { HeaderComponent } from './core/header/header.component';
 import { UserSettingsComponent } from './core/user/user-settings/user-settings.component';
+import { UserSettingsAccountComponent } from './core/user/user-settings/user-settings-account/user-settings-account.component';
+import { UserSettingsProfileComponent } from './core/user/user-settings/user-settings-profile/user-settings-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { UserSettingsComponent } from './core/user/user-settings/user-settings.c
     UsersComponent,
     ChatComponent,
     HeaderComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    UserSettingsAccountComponent,
+    UserSettingsProfileComponent
   ],
   imports: [
     BrowserModule,

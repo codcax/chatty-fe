@@ -37,8 +37,7 @@ module.exports = {
 
       },
       fontFamily: {
-        'noto-sans': ['Montserrat', 'san-serif'
-        ]
+        'encode-sans': ['Encode Sans', 'sans-serif']
       }
     },
   },
