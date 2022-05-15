@@ -94,7 +94,7 @@ export class AuthenticationService {
   }
 
   static getUserAuthToken() {
-    return this.userAuthToken;
+    return localStorage.getItem('token');
   }
 
   private storeAuthToken(token: string, expirationDate: Date) {
