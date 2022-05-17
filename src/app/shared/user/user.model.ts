@@ -1,11 +1,13 @@
-export interface User{
+export interface User {
   username: string,
   email: string,
   description?: string,
   avatar?: string,
   status: {
     mode: string,
-    duration?:number,
+    tagline: string,
+    duration?: number,
     setTime?: Date,
-  }
+  },
+  phoneNumber: string
 }

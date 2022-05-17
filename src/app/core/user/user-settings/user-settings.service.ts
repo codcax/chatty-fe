@@ -6,7 +6,6 @@ export class UserSettingsService {
   modalState: BehaviorSubject<'open' | 'close'> = new BehaviorSubject<'open' | 'close'>('close');
 
   openModal() {
-    console.log('open')
     this.modalState.next('open');
   }
 
@@ -15,7 +14,6 @@ export class UserSettingsService {
   }
 
   closeModal() {
-    console.log('close')
     this.modalState.next('close');
   }
 }

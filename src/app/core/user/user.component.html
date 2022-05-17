@@ -2,12 +2,31 @@
   <div class="flex items-center px-2 w-full">
     <a href="" class="relative">
       <img src="/assets/images/logo.png" alt="" class="w-8 h-8 rounded-full object-cover object-top">
-      <span
-        class="absolute bottom-0 right-0 inline-block w-4 h-4 transform translate-x-1/3 translate-y-1/4 bg-primary-green rounded-full border-4 border-secondary-black"></span>
+      <span class="">
+        <svg *ngIf="user.status.mode === 'Online'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-4 h-4 transform translate-x-1/3 translate-y-1/4 fill-green-500 rounded-full border-4 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+        </svg>
+        <svg *ngIf="user.status.mode === 'Do Not Disturb'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-4 h-4 transform translate-x-1/3 translate-y-1/4 fill-red-500 rounded-full border-4 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+        </svg>
+        <svg *ngIf="user.status.mode === 'Idle'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-4 h-4 transform translate-x-1/3 translate-y-1/4 fill-yellow-500 rounded-full border-4 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16">
+          <path
+            d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg *ngIf="user.status.mode === 'Offline' ||user.status.mode === 'Invisible' "
+             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-4 h-4 transform translate-x-1/3 translate-y-1/4 fill-gray-500 rounded-full border-4 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+        </svg>
+      </span>
     </a>
-    <div class="text-xs ml-3">
-      <p class="text-primary-white pb-1">{{user.username}}</p>
-      <p class="text-gray-500">#12312</p>
+    <div class="text-sm ml-3">
+      <p class="text-primary-white">{{user.username}}</p>
+      <p class="text-accent-gray text-xs">{{user.status.tagline}}</p>
     </div>
   </div>
   <div class="flex items-center px-2">
@@ -20,4 +39,6 @@
     </button>
   </div>
 </div>
-<app-user-settings></app-user-settings>
+<ng-container *ngIf="modalState | async as modalState">
+  <app-user-settings *ngIf="modalState === 'open'"></app-user-settings>
+</ng-container>

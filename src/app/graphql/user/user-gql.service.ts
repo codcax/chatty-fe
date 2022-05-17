@@ -13,6 +13,7 @@ export class UserGqlService extends Query {
           email
           status{
             mode
+            tagline
             duration
             setTime
           }

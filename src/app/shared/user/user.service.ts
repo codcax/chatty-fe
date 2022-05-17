@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, map, Subject} from "rxjs";
+import {catchError, map, Observable, Subject} from 'rxjs';
 
-import {User} from "./user.model";
-import {Errors} from "../error/error.model";
+import {User} from './user.model';
+import {Errors} from '../error/error.model';
 
 import {Apollo} from 'apollo-angular';
 import {UserGqlService} from '../../graphql/user/user-gql.service';
@@ -15,8 +15,9 @@ export class UserService {
   }
 
   fetchUser() {
-    this.userGqlService.watch({})
-      .valueChanges
+    console.log(this.userGqlService.fetch({
+
+    },{fetchPolicy: 'network-only',})
       .pipe(
         (map(response => {
             return {...response.data}
@@ -33,13 +34,13 @@ export class UserService {
       if (!ok) {
         return errors;
       }
-      if (ok && data){
+      if (ok && data) {
         this.user.next({...data});
       }
-    })
+    }))
   }
 
-  getUser(){
+  getUser(): Observable<User> {
     return this.user.asObservable();
   }
 }

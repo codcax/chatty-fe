@@ -6,15 +6,38 @@
       <div class="flex items-center pt-4 pb-6">
         <div class="relative">
           <img src="/assets/images/logo.png" alt="" class="w-24 h-auto rounded-full object-cover object-top">
-          <span
-            class="absolute bottom-0 right-0 inline-block w-7 h-7 transform translate-y-1/4 bg-primary-green rounded-full border-6 border-primary-black"></span>
+          <span class="">
+            <svg *ngIf="user.status.mode === 'Online'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 class="absolute bottom-0 right-0 inline-block w-7 h-7 transform translate-y-1/4 fill-green-500 rounded-full border-6 border-secondary-black bg-secondary-black"
+                 viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+            </svg>
+            <svg *ngIf="user.status.mode === 'Do Not Disturb'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-7 h-7 transform translate-y-1/4 fill-red-500 rounded-full border-6 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+            </svg>
+            <svg *ngIf="user.status.mode === 'Idle'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-7 h-7 transform translate-y-1/4 fill-yellow-500 rounded-full border-6 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16">
+              <path
+            d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+            </svg>
+            <svg *ngIf="user.status.mode === 'Offline' ||user.status.mode === 'Invisible'"
+             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             class="absolute bottom-0 right-0 inline-block w-7 h-7 transform translate-y-1/4 fill-gray-500 rounded-full border-6 border-secondary-black bg-secondary-black"
+             viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/>
+            </svg>
+          </span>
         </div>
         <div class="ml-8 flex-1 flex flex-col">
-          <h1 class="text-3xl font-semibold">VishaJr <span class="text-accent-gray text-lg">#25478</span></h1>
+          <h1 class="text-3xl font-semibold">{{user.username}}</h1>
+          <p class="text-accent-gray text-sm">{{user.status.tagline}}</p>
           <div class="flex justify-between">
-            <p class="text-xs italic pt-2">Lorem Ipsum 20</p>
+            <p class="text-sm pt-2">{{user.description}}</p>
             <div class="">
-              <button class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">Edit</button>
+              <button
+                class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">
+                Edit
+              </button>
             </div>
           </div>
         </div>
@@ -22,28 +45,37 @@
       <div class="flex justify-between">
         <div class="w-3/4">
           <h1 class="font-semibold text-xs">USERNAME</h1>
-          <h1 class="">VishaJr</h1>
+          <h1 class="">{{user.username}}</h1>
         </div>
         <div class="">
-          <button class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">Edit</button>
+          <button
+            class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">
+            Edit
+          </button>
         </div>
       </div>
       <div class="flex justify-between">
         <div class="w-3/4">
           <h1 class="font-semibold text-xs">EMAIL</h1>
-          <h1 class="">VishaJr</h1>
+          <h1 class="">{{user.email}}</h1>
         </div>
         <div class="">
-          <button class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">Edit</button>
+          <button
+            class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">
+            Edit
+          </button>
         </div>
       </div>
       <div class="flex justify-between">
         <div class="w-3/4">
           <h1 class="font-semibold text-xs">PHONE NUMBER</h1>
-          <h1 class="">014-9330596</h1>
+          <h1 class="">{{user.phoneNumber}}</h1>
         </div>
         <div class="">
-          <button class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">Edit</button>
+          <button
+            class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">
+            Edit
+          </button>
         </div>
       </div>
     </div>
@@ -52,21 +84,34 @@
 <div class="flex flex-col pt-8 pb-8 border-b border-b-secondary-gray">
   <h1 class="text-xl font-semibold">Password and Authentication</h1>
   <div class="mt-4 mb-4">
-    <button class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out">Change Password</button>
+    <button class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out">
+      Change Password
+    </button>
   </div>
   <div class="mt-4">
     <h1 class="text-xs font-semibold pb-2">TWO FACTOR AUTHENTICATION</h1>
-    <p class="text-xs font-light pb-4">Protect your Chatty account with an extra layer of security. Once configured, you'll be required to enter both your password and an authenticaton code from your mobile phone in order to sign in.</p>
-    <button class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out">Enable Two-Factor Auth</button>
+    <p class="text-xs font-light pb-4">Protect your Chatty account with an extra layer of security. Once configured,
+      you'll be required to enter both your password and an authenticaton code from your mobile phone in order to sign
+      in.</p>
+    <button class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out">
+      Enable Two-Factor Auth
+    </button>
   </div>
 </div>
 <div class="flex flex-col pt-8">
   <div class="mt-4">
     <h1 class="text-xs font-semibold pb-2">ACCOUNT REMOVAL</h1>
-    <p class="text-xs font-light pb-4">Disabling your account means you can recover it at any time after taking this action.</p>
+    <p class="text-xs font-light pb-4">Disabling your account means you can recover it at any time after taking this
+      action.</p>
     <div class="space-x-2">
-      <button class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out" >Disable Account</button>
-      <button class="rounded bg-primary-error py-2 px-4 text-xs hover:bg-accent-error transition duration-300 ease-in-out">Delete Account</button>
+      <button
+        class="rounded bg-primary-blue py-2 px-4 text-xs hover:bg-accent-blue transition duration-300 ease-in-out">
+        Disable Account
+      </button>
+      <button
+        class="rounded bg-primary-error py-2 px-4 text-xs hover:bg-accent-error transition duration-300 ease-in-out">
+        Delete Account
+      </button>
     </div>
   </div>
 </div>

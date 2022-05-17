@@ -7,8 +7,8 @@
           <div class="space-y-2 border-b-2 border-b-secondary-gray pb-3">
             <h1 class="text-xs font-bold pl-2">USER SETTINGS</h1>
             <ul class="space-y-0.5">
-              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">My Account</li>
-              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Privacy & Safety</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray" (click)="activeSubModal = 'userSettingsAccount'">My Account</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray" (click)="activeSubModal = 'userSettingsPrivacy'">Privacy & Safety</li>
               <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Authorised Apps</li>
               <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Connections</li>
             </ul>
@@ -42,7 +42,9 @@
           </button>
         </div>
         <div class="w-3/5" id="user-account">
-          <app-user-settings-account class=""></app-user-settings-account>
+          <ng-container>
+            <app-user-settings-account class="" *ngIf="activeSubModal === 'userSettingsAccount'"></app-user-settings-account>
+          </ng-container>
         </div>
       </div>
     </div>

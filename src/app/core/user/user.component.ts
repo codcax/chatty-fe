@@ -12,6 +12,7 @@ import {User} from '../../shared/user/user.model';
 })
 export class UserComponent implements OnInit {
   private getUser: Subscription;
+  modalState: Observable<'open' | 'close'>;
   user: User;
 
   constructor(private userSettingsService: UserSettingsService, private userServiceShared: UserService) {
@@ -22,6 +23,7 @@ export class UserComponent implements OnInit {
     this.getUser = this.userServiceShared.getUser().pipe(take(1)).subscribe((user) => {
       this.user = user;
     })
+    this.modalState = this.userSettingsService.watchModal();
   }
 
   openUserSettingsModal() {
