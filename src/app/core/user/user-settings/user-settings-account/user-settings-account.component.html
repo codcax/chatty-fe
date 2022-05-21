@@ -62,7 +62,8 @@
         </div>
         <div class="">
           <button
-            class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out">
+            class="rounded bg-secondary-gray py-2 px-4 text-xs hover:bg-accent-gray transition duration-300 ease-in-out"
+            (click)="openEditEmailModal()">
             Edit
           </button>
         </div>
@@ -139,18 +140,17 @@
         </div>
         <form [formGroup]="updateUsernameForm" (ngSubmit)="onUpdateUsername()" class="w-full flex flex-col pt-4" (keydown.enter)="$event.preventDefault()">
           <div class="flex flex-col px-6 space-y-2 pb-4">
-            <label for="username" class="text-xs font-semibold"
+            <label class="text-xs font-semibold"
                    [ngClass]="editUsernameModalUsernameError !== null ? 'text-secondary-error': 'text-primary-white'">USERNAME
               <span class="text-xxs italic text-accent-error px-2"
                     *ngIf="editUsernameModalUsernameError!== null ">{{editUsernameModalUsernameError?.message}}</span>
             </label>
             <input type="text"
                    formControlName="username"
-                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
-                   id="username">
+                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md">
           </div>
           <div class="flex flex-col px-6 space-y-2 pb-4">
-            <label for="password" class="text-xs font-semibold"
+            <label class="text-xs font-semibold"
                    [ngClass]="editUsernameModalPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">CURRENT
               PASSWORD
               <span class="text-xxs italic text-accent-error px-2"
@@ -158,8 +158,7 @@
             </label>
             <input type="password"
                    formControlName="password"
-                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
-                   id="password">
+                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md">
           </div>
           <div class="flex justify-end bg-primary-gray px-4 py-6 rounded-b-md px-6 text-sm">
             <button class="px-6 py-2 hover:underline" (click)="closeEditUsernameModal()">Cancel</button>
@@ -174,3 +173,61 @@
     </div>
   </section>
 </ng-container>
+
+<!--editEmailModal-->
+<ng-container *ngIf="editEmailModalState === 'open'">
+  <section [ngClass]="editEmailModalState ==='open' ? 'visible' : 'hidden'"
+           class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-primary-black bg-opacity-95">
+    <div class="flex flex-col bg-secondary-gray rounded-md">
+      <div class="flex justify-end pt-6 pr-4">
+        <button class="" type="button" (click)="closeEditEmailModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="w-6 h-6 fill-accent-white"
+               viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="">
+        <div class="text-center px-12">
+          <h1 class="text-xl font-semibold pb-1">Change your email</h1>
+          <p class="text-sm font-thin pb-6">Enter a new email and your existing password.</p>
+        </div>
+        <form [formGroup]="updateEmailForm" (ngSubmit)="onUpdateEmail()" class="w-full flex flex-col pt-4" (keydown.enter)="$event.preventDefault()">
+          <div class="flex flex-col px-6 space-y-2 pb-4">
+            <label class="text-xs font-semibold"
+                   [ngClass]="editEmailModalEmailError !== null ? 'text-secondary-error': 'text-primary-white'">EMAIL
+              <span class="text-xxs italic text-accent-error px-2"
+                    *ngIf="editEmailModalEmailError!== null ">{{editEmailModalEmailError?.message}}</span>
+            </label>
+            <input type="email"
+                   formControlName="email"
+                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md">
+          </div>
+          <div class="flex flex-col px-6 space-y-2 pb-4">
+            <label class="text-xs font-semibold"
+                   [ngClass]="editEmailModalPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">CURRENT
+              PASSWORD
+              <span class="text-xxs italic text-accent-error px-2"
+                    *ngIf="editEmailModalPasswordError !== null ">{{editEmailModalPasswordError?.message}}</span>
+            </label>
+            <input type="password"
+                   formControlName="password"
+                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md">
+          </div>
+          <div class="flex justify-end bg-primary-gray px-4 py-6 rounded-b-md px-6 text-sm">
+            <button class="px-6 py-2 hover:underline" (click)="closeEditEmailModal()">Cancel</button>
+            <button
+              [disabled]="!updateEmailForm.valid"
+              class="bg-secondary-blue px-6 py-2 rounded-md hover:bg-primary-blue transition ease-in-out duration-300">
+              Done
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<!--editPasswordModal-->

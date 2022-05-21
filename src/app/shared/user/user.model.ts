@@ -16,3 +16,8 @@ export interface UpdateUsername {
   newUsername: string,
   password: string
 }
+
+export interface UpdateEmail {
+  newEmail: string,
+  password: string
+}
