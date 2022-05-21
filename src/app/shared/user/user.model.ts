@@ -11,3 +11,8 @@ export interface User {
   },
   phoneNumber: string
 }
+
+export interface UpdateUsername {
+  newUsername: string,
+  password: string
+}

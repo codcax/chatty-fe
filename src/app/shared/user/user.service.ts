@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {catchError, map, Observable, Subject} from 'rxjs';
+import {Apollo} from 'apollo-angular';
 
 import {User} from './user.model';
 import {Errors} from '../error/error.model';
-
-import {Apollo} from 'apollo-angular';
 import {UserGqlService} from '../../graphql/user/user-gql.service';
 
 @Injectable({providedIn: 'root'})
@@ -15,7 +14,7 @@ export class UserService {
   }
 
   fetchUser() {
-    console.log(this.userGqlService.fetch({
+    this.userGqlService.fetch({
 
     },{fetchPolicy: 'network-only',})
       .pipe(
@@ -37,7 +36,7 @@ export class UserService {
       if (ok && data) {
         this.user.next({...data});
       }
-    }))
+    })
   }
 
   getUser(): Observable<User> {

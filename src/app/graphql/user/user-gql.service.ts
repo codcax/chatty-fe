@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {gql, Query} from 'apollo-angular';
+import {gql, Query, Mutation} from 'apollo-angular';
 
 
 @Injectable({providedIn: 'root'})
@@ -19,6 +19,25 @@ export class UserGqlService extends Query {
           }
           avatar,
           description
+        }
+        errors{
+          type
+          message
+          code
+        }
+      }
+    }
+  `;
+}
+
+@Injectable({providedIn: 'root'})
+export class UpdateUsernameGqlService extends Mutation {
+  override document = gql`
+    mutation updateUsername($updateUsernameData: UpdateUsername!){
+      updateUsername(input: $updateUsernameData) {
+        ok
+        data{
+          username
         }
         errors{
           type
