@@ -1,0 +1,52 @@
+<ng-container *ngIf="modalState | async as modalState">
+  <section [ngClass]="modalState ==='open' ? 'visible' : 'hidden'" (click)="$event.stopPropagation()"
+           class="absolute top-0 left-0 flex min-h-screen h-screen w-screen overflow-y-hidden">
+    <div class="flex-1 flex">
+      <div class="w-[42rem] flex-none flex flex-col min-h-screen h-screen bg-primary-black pr-4 pt-16 text-accent-gray items-end">
+        <div class="flex flex-col px-2">
+          <div class="space-y-2 border-b-2 border-b-secondary-gray pb-3">
+            <h1 class="text-xs font-bold pl-2">USER SETTINGS</h1>
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray" (click)="activeSubModal = 'userSettingsAccount'">My Account</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray" (click)="activeSubModal = 'userSettingsPrivacy'">Privacy & Safety</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Authorised Apps</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Connections</li>
+            </ul>
+          </div>
+          <div class="space-y-2 border-b-2 border-b-secondary-gray pb-3 pt-5">
+            <h1 class="text-xs font-bold pl-2">APP SETTINGS</h1>
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Appearance</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Accessibility</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Voice & Video</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Text & Images</li>
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Notifications</li>
+            </ul>
+          </div>
+          <div class="space-y-2 pb-5 pt-3">
+            <ul class="space-y-0.5">
+              <li class="px-3 py-1 rounded-sm hover:text-secondary-white hover:bg-primary-gray">Logout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 bg-primary-gray pt-16 pl-16 text-accent-white">
+        <div class="w-3/5 flex justify-end">
+          <button class="" type="button" (click)="closeModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="w-6 h-6 fill-accent-white"
+                 viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="w-3/5" id="user-account">
+          <ng-container>
+            <app-user-settings-account class="" *ngIf="activeSubModal === 'userSettingsAccount'"></app-user-settings-account>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

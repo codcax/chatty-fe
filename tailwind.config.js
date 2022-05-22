@@ -20,8 +20,11 @@ module.exports = {
         // 'secondary-green':'',
         // 'accent-green':'',
         'primary-blue': '#5865F2',
-        'secondary-blue': '#828BF6',
-        'accent-blue': '#949CF7',
+        'secondary-blue': '#6571f6',
+        'accent-blue': '#7e88f8',
+        'primary-purple': '#828BF6',
+        'secondary-purple': '#9479d7',
+        'accent-purple': '#b6a8f5',
         'primary-white': '#FFFFFF',
         'secondary-white': '#F2F3F5',
         'accent-white': '#F8FAF9',
@@ -37,9 +40,11 @@ module.exports = {
 
       },
       fontFamily: {
-        'noto-sans': ['Montserrat', 'san-serif'
-        ]
-      }
+        'encode-sans': ['Encode Sans', 'sans-serif']
+      },
+      fontSize:{
+        'xxs':'.65rem',
+      },
     },
   },
   plugins: [],

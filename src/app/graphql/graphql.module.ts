@@ -30,10 +30,19 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
 
   const link = ApolloLink.from([basic, auth, httpLink.create({uri})]);
   const cache = new InMemoryCache();
+  // const defaultOptions = {
+  //   watchQuery: {
+  //     fetchPolicy: 'network-only',
+  //   },
+  //   query: {
+  //     fetchPolicy: 'network-only',
+  //   },
+  // }
 
   return {
     link,
-    cache
+    cache,
+    // defaultOptions
   };
 }
 

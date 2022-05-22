@@ -15,6 +15,9 @@ import { ServersComponent } from './core/servers/servers.component';
 import { UsersComponent } from './core/users/users.component';
 import { ChatComponent } from './core/chat/chat.component';
 import { HeaderComponent } from './core/header/header.component';
+import { UserSettingsComponent } from './core/user/user-settings/user-settings.component';
+import { UserSettingsAccountComponent } from './core/user/user-settings/user-settings-account/user-settings-account.component';
+import { UserSettingsProfileComponent } from './core/user/user-settings/user-settings-profile/user-settings-profile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { HeaderComponent } from './core/header/header.component';
     ServersComponent,
     UsersComponent,
     ChatComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserSettingsComponent,
+    UserSettingsAccountComponent,
+    UserSettingsProfileComponent
   ],
   imports: [
     BrowserModule,
