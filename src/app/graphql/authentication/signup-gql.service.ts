@@ -8,10 +8,6 @@ export class SignupGqlService extends Mutation {
     mutation userSignUp($userSignUpData: userCreate!) {
       userSignUp (input: $userSignUpData){
         ok
-        data{
-          _id
-          email
-        }
         errors{
           type
           message
