@@ -254,6 +254,18 @@
         <form [formGroup]="updatePasswordForm" (ngSubmit)="onUpdatePassword()" class="w-full flex flex-col pt-4" (keydown.enter)="$event.preventDefault()">
           <div class="flex flex-col px-6 space-y-2 pb-4">
             <label class="text-xs font-semibold"
+                   [ngClass]="editPasswordModalPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">CURRENT
+              PASSWORD
+              <span class="text-xxs italic text-accent-error px-2"
+                    *ngIf="editPasswordModalPasswordError !== null ">{{editPasswordModalPasswordError?.message}}</span>
+            </label>
+            <input type="password"
+                   formControlName="password"
+                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
+                   (focus)="onFocus($event)">
+          </div>
+          <div class="flex flex-col px-6 space-y-2 pb-4">
+            <label class="text-xs font-semibold"
                    [ngClass]="editPasswordModalNewPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">NEW PASSWORD
               <span class="text-xxs italic text-accent-error px-2"
                     *ngIf="editPasswordModalNewPasswordError!== null ">{{editPasswordModalNewPasswordError?.message}}</span>
@@ -262,7 +274,7 @@
                    formControlName="newPassword"
                    class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
                    (focus)="onFocus($event)">
-            <div class="text-xs space-y-1 p-2 text-accent-gray mb-4"
+            <div class="text-xs space-y-1 p-2 border-l-2 border-primary-gray text-accent-gray mb-4"
                  *ngIf="this.focusControl === 'newPassword'">
               <p class="pb-0.5">At least 8 chars min and 32 chars max.</p>
               <p class="pb-0.5">Must include at least one letter uppercase and lowercase.</p>
@@ -278,18 +290,6 @@
             </label>
             <input type="password"
                    formControlName="confirmPassword"
-                   class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
-                   (focus)="onFocus($event)">
-          </div>
-          <div class="flex flex-col px-6 space-y-2 pb-4">
-            <label class="text-xs font-semibold"
-                   [ngClass]="editPasswordModalPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">CURRENT
-              PASSWORD
-              <span class="text-xxs italic text-accent-error px-2"
-                    *ngIf="editPasswordModalPasswordError !== null ">{{editPasswordModalPasswordError?.message}}</span>
-            </label>
-            <input type="password"
-                   formControlName="password"
                    class="appearance-none focus:outline-none block bg-secondary-black w-full p-2 mb-4 text-white placeholder-white rounded-md"
                    (focus)="onFocus($event)">
           </div>
