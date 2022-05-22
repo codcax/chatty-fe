@@ -15,17 +15,23 @@ import {UserSettingsService} from '../user-settings.service';
 export class UserSettingsAccountComponent implements OnInit {
   updateUsernameForm: FormGroup;
   updateEmailForm: FormGroup;
+  updatePasswordForm: FormGroup;
   focusControl: string | undefined;
   editUsernameModalUsernameError: Error | null = null;
   editUsernameModalPasswordError: Error | null = null;
   editEmailModalEmailError: Error | null = null;
   editEmailModalPasswordError: Error | null = null;
+  editPasswordModalNewPasswordError: Error | null = null;
+  editPasswordModalConfirmPasswordError: Error | null = null;
+  editPasswordModalPasswordError: Error | null = null;
 
   private getUser: Subscription;
   user: User;
   activeSubModal: string;
   editUsernameModalState: string = 'close';
   editEmailModalState: string = 'close';
+  editPasswordModalState: string = 'close';
+
 
   constructor(private userServiceShared: UserService, private userSettingsService: UserSettingsService) {
   }
@@ -40,6 +46,7 @@ export class UserSettingsAccountComponent implements OnInit {
       this.user = user;
       this.newUpdateUsernameForm();
       this.newUpdateEmailForm();
+      this.newUpdatePasswordForm();
     })
   }
 
@@ -51,6 +58,10 @@ export class UserSettingsAccountComponent implements OnInit {
     this.editEmailModalState = 'open';
   }
 
+  openEditPasswordModal() {
+    this.editPasswordModalState = 'open';
+  }
+
   closeEditUsernameModal() {
     this.editUsernameModalState = 'close';
     this.resetAllForms();
@@ -59,6 +70,12 @@ export class UserSettingsAccountComponent implements OnInit {
 
   closeEditEmailModal() {
     this.editEmailModalState = 'close';
+    this.resetAllForms();
+    this.resetAllFormsErrors()
+  }
+
+  closeEditPasswordModal() {
+    this.editPasswordModalState = 'close';
     this.resetAllForms();
     this.resetAllFormsErrors()
   }
@@ -77,6 +94,17 @@ export class UserSettingsAccountComponent implements OnInit {
       'password': new FormControl(null, [Validators.required]),
     });
     this.updateEmailForm.get('email')?.setValue(this.user.email);
+  }
+
+  newUpdatePasswordForm() {
+    this.updatePasswordForm = new FormGroup({
+      'newPassword': new FormControl(null, [Validators.required]),
+      'confirmPassword': new FormControl(null, [Validators.required]),
+      'password': new FormControl(null, [Validators.required]),
+    });
+    this.updatePasswordForm.get('newPassword')?.setValue('');
+    this.updatePasswordForm.get('confirmPassword')?.setValue('');
+    this.updatePasswordForm.get('password')?.setValue('');
   }
 
   onUpdateUsername() {
@@ -135,11 +163,54 @@ export class UserSettingsAccountComponent implements OnInit {
       });
   }
 
+  onUpdatePassword() {
+    if (this.updatePasswordForm.invalid) {
+      return;
+    }
+    this.userSettingsService.updatePassword(this.updatePasswordForm.value.newPassword, this.updatePasswordForm.value.confirmPassword, this.updatePasswordForm.value.password)
+      .subscribe((response) => {
+        this.resetAllFormsErrors();
+        const ok = response.updatePassword.ok;
+        const data = response.updatePassword;
+        const errors = response.updatePassword.errors;
+        if (!ok) {
+          errors.map((item: Error) => {
+            if (item.type === 'newPassword') {
+              this.editPasswordModalNewPasswordError = item;
+            }
+
+            if (item.type === 'confirmPassword') {
+              this.editPasswordModalConfirmPasswordError = item;
+            }
+
+            if (item.type === 'authenticate') {
+              this.editPasswordModalPasswordError = item;
+            }
+          })
+        }
+        if (ok) {
+          this.resetAllFormsErrors();
+          this.updatePasswordForm.get('newPassword')?.setValue('');
+          this.updatePasswordForm.get('confirmPassword')?.setValue('');
+          this.updatePasswordForm.get('password')?.setValue('');
+        }
+      });
+  }
+
+  onFocus(event: any) {
+    if (event.target.attributes.formControlName.value === 'newPassword') {
+      this.focusControl = 'newPassword'
+    } else {
+      this.focusControl = undefined
+    }
+  }
+
   resetAllForms() {
     this.updateUsernameForm.reset();
     this.updateUsernameForm.get('username')?.setValue(this.user.username);
     this.updateEmailForm.reset();
     this.updateEmailForm.get('email')?.setValue(this.user.email);
+    this.updatePasswordForm.reset();
   }
 
   resetAllFormsErrors() {
@@ -147,6 +218,9 @@ export class UserSettingsAccountComponent implements OnInit {
     this.editUsernameModalPasswordError = null;
     this.editEmailModalEmailError = null;
     this.editEmailModalPasswordError = null;
+    this.editPasswordModalNewPasswordError = null;
+    this.editPasswordModalConfirmPasswordError = null;
+    this.editPasswordModalPasswordError = null;
   }
 
   ngOnDestroy() {

@@ -49,8 +49,24 @@ export class UpdateUsernameGqlService extends Mutation {
 @Injectable({providedIn: 'root'})
 export class UpdateEmailGqlService extends Mutation {
   override document = gql`
-    mutation updatEmail($updateEmailData: UpdateEmail!){
+    mutation updateEmail($updateEmailData: UpdateEmail!){
       updateEmail(input: $updateEmailData) {
+        ok
+        errors{
+          type
+          message
+          code
+        }
+      }
+    }
+  `;
+}
+
+@Injectable({providedIn: 'root'})
+export class UpdatePasswordGqlService extends Mutation {
+  override document = gql`
+    mutation updatePassword($updatePasswordData: UpdatePassword!){
+      updatePassword(input: $updatePasswordData) {
         ok
         errors{
           type

@@ -21,3 +21,9 @@ export interface UpdateEmail {
   newEmail: string,
   password: string
 }
+
+export interface UpdatePassword {
+  newPassword: string,
+  newConfirmPassword: string,
+  password: string
+}
