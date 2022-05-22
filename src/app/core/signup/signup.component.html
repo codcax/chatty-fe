@@ -16,12 +16,13 @@
       </div>
     </div>
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
-      <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-error text-accent-error mb-4"
-           *ngIf="this.errors.length>0">
-        <p class="pb-0.5" *ngFor="let error of errors">{{error.message}}</p>
-      </div>
       <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="flex flex-col text-sm">
-        <input type="text" placeholder="Username" formControlName="username" (focus)="onFocus($event)"
+        <label class="text-xs font-semibold pl-2"
+               [ngClass]="usernameError !== null ? 'text-secondary-error': 'text-primary-white'">USERNAME
+          <span class="text-xxs italic text-accent-error px-2"
+                *ngIf="usernameError !== null ">{{usernameError?.message}}</span>
+        </label>
+        <input type="text" formControlName="username" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('username')?.valid && signupForm.get('username')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
@@ -30,7 +31,12 @@
           <p class="pb-0.5">At least 6 chars min and 18 chars max.</p>
           <p class="pb-0.5">Must only contain alphabetic chars.</p>
         </div>
-        <input type="email" placeholder="Email" formControlName="email" (focus)="onFocus($event)"
+        <label class="text-xs font-semibold pl-2"
+               [ngClass]="emailError !== null ? 'text-secondary-error': 'text-primary-white'">EMAIL
+          <span class="text-xxs italic text-accent-error px-2"
+                *ngIf="emailError !== null ">{{emailError?.message}}</span>
+        </label>
+        <input type="email" formControlName="email" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('email')?.valid && signupForm.get('email')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
@@ -38,7 +44,12 @@
              *ngIf="this.focusControl === 'email'">
           <p class="pb-0.5">Email must be valid.</p>
         </div>
-        <input type="password" placeholder="Password" formControlName="password" (focus)="onFocus($event)"
+        <label class="text-xs font-semibold pl-2"
+               [ngClass]="passwordError !== null ? 'text-secondary-error': 'text-primary-white'">PASSWORD
+          <span class="text-xxs italic text-accent-error px-2"
+                *ngIf="passwordError !== null ">{{passwordError?.message}}</span>
+        </label>
+        <input type="password" formControlName="password" (focus)="onFocus($event)"
                [ngClass]="!signupForm.get('password')?.valid && signupForm.get('password')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent p-3 mb-4 text-white placeholder-white"
                autocomplete="off">
@@ -48,7 +59,12 @@
           <p class="pb-0.5">Must include at least one letter uppercase and lowercase.</p>
           <p class="pb-0.5">Must include at least one special chars.</p>
         </div>
-        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword"
+        <label class="text-xs font-semibold pl-2"
+               [ngClass]="confirmPasswordError !== null ? 'text-secondary-error': 'text-primary-white'">CONFIRM PASSWORD
+          <span class="text-xxs italic text-accent-error px-2"
+                *ngIf="confirmPasswordError !== null ">{{confirmPasswordError?.message}}</span>
+        </label>
+        <input type="password" formControlName="confirmPassword"
                (focus)="onFocus($event)"
                [ngClass]="(signupForm.get('confirmPassword')?.value !== signupForm.get('password')?.value) && signupForm.get('confirmPassword')?.touched ? 'border-accent-error' : 'border-accent-gray'"
                class="appearance-none focus:outline-none block border-b bg-transparent w-full p-3 mb-4 text-white placeholder-white"

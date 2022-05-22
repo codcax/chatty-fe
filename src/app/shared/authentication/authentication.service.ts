@@ -12,7 +12,6 @@ import {Errors} from '../error/error.model';
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
-  private userSignUpError = new Subject<Errors>();
   private userIsAuth = false;
   private static userAuthToken: UserAuthToken;
 
@@ -27,7 +26,7 @@ export class AuthenticationService {
       confirmPassword: confirmPassword
     };
 
-    this.signupGqlService.mutate({
+    return this.signupGqlService.mutate({
       userSignUpData: userSignupData
     }).pipe(
       (map(response => {
@@ -36,17 +35,7 @@ export class AuthenticationService {
       // @ts-ignore
       catchError(err => {
         console.log(err)
-      })).subscribe((response) => {
-      const ok = response.userSignUp.ok;
-      const data = response.userSignUp.data;
-      const errors = response.userSignUp.errors;
-      if (!ok) {
-        this.userSignUpError.next([...errors]);
-      }
-      if (ok) {
-        this.userSignUpError.next([]);
-      }
-    })
+      }))
   }
 
   userLogin(email: string, password: string) {
@@ -87,10 +76,6 @@ export class AuthenticationService {
 
   getUserLoginError() {
     return this.userLoginError.asObservable();
-  }
-
-  getUserSignUpError() {
-    return this.userSignUpError.asObservable();
   }
 
   static getUserAuthToken() {

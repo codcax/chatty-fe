@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 
 import {authenticationValidator} from '../../shared/authentication/authentication.validator';
 import {AuthenticationService} from '../../shared/authentication/authentication.service';
-import {Errors} from "../../shared/error/error.model";
+import {Error} from "../../shared/error/error.model";
 import {Router} from "@angular/router";
 
 @Component({
@@ -16,8 +16,12 @@ export class SignUpComponent implements OnInit {
   title = 'chatty';
   signupForm: FormGroup;
   focusControl: string | undefined;
-  errors: Errors = [];
-  private errorSignUpSub: Subscription;
+  usernameError: Error | null = null;
+  emailError: Error | null = null;
+  passwordError: Error | null = null;
+  confirmPasswordError: Error | null = null;
+  accountError: Error | null = null;
+
 
   constructor(private authService: AuthenticationService, private router: Router) {
   }
@@ -37,10 +41,38 @@ export class SignUpComponent implements OnInit {
     if (this.signupForm.invalid) {
       return;
     }
-    this.authService.userSignup(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword);
-    this.errorSignUpSub = this.authService.getUserSignUpError().subscribe((errors: any) => {
-      this.errorSignUp(errors);
-    });
+    this.authService.userSignup(this.signupForm.value.email, this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword).subscribe((response) => {
+      const ok = response.userSignUp.ok;
+      const data = response.userSignUp.data;
+      const errors = response.userSignUp.errors;
+      if (!ok) {
+        errors.map((item: Error) => {
+          if (item.type === 'username') {
+            this.usernameError = item;
+          }
+
+          if (item.type === 'email') {
+            this.emailError = item;
+          }
+
+          if (item.type === 'password') {
+            this.passwordError = item;
+          }
+
+          if (item.type === 'confirmPassword') {
+            this.confirmPasswordError = item;
+          }
+
+          if (item.type === 'account') {
+            this.accountError = item;
+          }
+        })
+      }
+      if (ok) {
+        this.resetAllErrors();
+        this.router.navigate(['login']);
+      }
+    })
   }
 
   onFocus(event: any) {
@@ -57,17 +89,15 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  errorSignUp(errors: any) {
-    if (errors.length > 0) {
-      this.errors = errors;
-      this.errorSignUpSub.unsubscribe();
-    } else {
-      this.errors = [];
-      this.router.navigate(['login']);
-    }
+  resetAllErrors() {
+    this.usernameError = null;
+    this.emailError = null;
+    this.passwordError = null;
+    this.confirmPasswordError = null;
+    this.accountError = null;
   }
 
   ngOnDestroy() {
-    this.errorSignUpSub.unsubscribe();
+
   }
 }
