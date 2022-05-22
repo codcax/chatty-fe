@@ -1,4 +1,4 @@
-<div class="flex h-screen overflow-y-hidden bg-gray-800 text-white bg-primary-black">
+<div class="flex h-screen overflow-y-hidden text-white bg-primary-black">
   <div class="w-full flex flex-col min-h-screen justify-center items-center lg:w-[36rem] xl:w-[44rem]">
     <div class="p-4 rounded-3xl shadow-md shadow-accent-black">
       <img src="../../../assets/images/logo.png" alt="" class="w-auto h-32 object-cover">
@@ -17,7 +17,7 @@
     </div>
     <div class="w-full mt-12 px-12 sm:px-44 lg:px-32 xl:px-44">
       <div class="text-xs space-y-1 p-2 border-l-2 border-secondary-error text-accent-error mb-4"
-           *ngIf="this.errors.length>0">
+           *ngIf="errors.length>0">
         <p class="pb-1" *ngFor="let error of errors">{{error.message}}</p>
       </div>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col text-sm">

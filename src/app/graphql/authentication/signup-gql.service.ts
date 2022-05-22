@@ -11,7 +11,6 @@ export class SignupGqlService extends Mutation {
         data{
           _id
           email
-
         }
         errors{
           type

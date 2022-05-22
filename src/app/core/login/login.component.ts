@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 
-import {AuthService} from "../../shared/authentication/auth.service";
+import {AuthenticationService} from "../../shared/authentication/authentication.service";
 import {Errors} from "../../shared/error/error.model";
 
 @Component({
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   errors: Errors = [];
   private errorLoginSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {

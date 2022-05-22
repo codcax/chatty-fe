@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, OnInit} from '@angular/core';
 
-import {AuthService} from '../../shared/authentication/auth.service';
+import {AuthenticationService} from '../../shared/authentication/authentication.service';
+import {UserAuthToken} from "../../shared/authentication/authentication.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,17 +9,9 @@ import {AuthService} from '../../shared/authentication/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private userAuthToken: Subscription;
-
-  constructor(private authService: AuthService ) {}
-
-  ngOnInit() {
-    this.userAuthToken = this.authService.getUserAuthToken().subscribe(authToken =>{
-      console.log(authToken)
-    })
+  constructor() {
   }
 
-  ngOnDestroy(){
-    this.userAuthToken.unsubscribe();
+  ngOnInit() {
   }
 }
