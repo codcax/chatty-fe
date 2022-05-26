@@ -11,6 +11,7 @@ export class LoginGqlService extends Query {
         data{
           userId
           token
+          expiresIn
         }
         errors{
           type
