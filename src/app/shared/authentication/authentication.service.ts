@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {Apollo} from 'apollo-angular';
 import {catchError, map, Subject} from 'rxjs';
 
@@ -14,8 +15,9 @@ export class AuthenticationService {
   private userLoginError = new Subject<Errors>();
   private userIsAuth = false;
   private static userAuthToken: UserAuthToken;
+  private userExpirationTimer: NodeJS.Timer;
 
-  constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService) {
+  constructor(private apollo: Apollo, private loginGqlService: LoginGqlService, private signupGqlService: SignupGqlService, private router: Router) {
   }
 
   userSignup(email: string, username: string, password: string, confirmPassword: string) {
@@ -64,6 +66,7 @@ export class AuthenticationService {
       if (ok && data && data.token) {
         this.userLoginError.next([]);
         AuthenticationService.userAuthToken = data.token;
+        this.setUserExpirationTimer(data.expiresIn);
         this.storeAuthToken(data.token, data.token);
         this.userIsAuth = true;
       }
@@ -78,8 +81,22 @@ export class AuthenticationService {
     return this.userLoginError.asObservable();
   }
 
+  userLogout(){
+    clearTimeout(this.userExpirationTimer);
+    this.removeAuthToken();
+    this.userIsAuth = false;
+    this.apollo.client.resetStore();
+    this.router.navigate(['/login']);
+  }
+
   static getUserAuthToken() {
     return localStorage.getItem('token');
+  }
+
+  private setUserExpirationTimer(duration: number){
+    this.userExpirationTimer = setTimeout(()=>{
+      this.userLogout();
+    }, duration*1000);
   }
 
   private storeAuthToken(token: string, expirationDate: Date) {
